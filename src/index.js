@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { AppRoutes } from "../src/core/routes";
 import { theme } from "../src/core/theme";
 import { Provider } from "react-redux";
-import { store } from "../src/core/store";
+import store from "../src/core/store";
 
 const App = () => {
 

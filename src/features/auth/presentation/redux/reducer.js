@@ -1,19 +1,19 @@
-// src/features/auth/redux/reducer.js
-import { SIGN_IN_GOOGLE, SIGN_IN_GOOGLE_SUCCESS, SIGN_IN_GOOGLE_FAILURE } from './action_types';
+// src/features/auth/presentation/redux/reducer.js
+import authRepo from '../../domain/repo/auth_repo';
 
 const initialState = {
-    user: null,
-    status: 'idle', // idle, loading, success, failure
+    authRepo, // Inject authRepo into the state
+    status: 'idle', // 'idle', 'loading', 'success', 'failure'
     error: null,
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SIGN_IN_GOOGLE:
+        case 'SIGN_IN_GOOGLE':
             return { ...state, status: 'loading' };
-        case SIGN_IN_GOOGLE_SUCCESS:
-            return { ...state, status: 'success', user: action.payload };
-        case SIGN_IN_GOOGLE_FAILURE:
+        case 'SIGN_IN_GOOGLE_SUCCESS':
+            return { ...state, status: 'success' };
+        case 'SIGN_IN_GOOGLE_FAILURE':
             return { ...state, status: 'failure', error: action.payload };
         default:
             return state;

@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Getting Started with HelpNest Admin Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is built with **React**, **Tailwind CSS**, and **Firebase**, adhering to clean architecture principles for scalability and maintainability.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Project Highlights
 
-### `npm start`
+### 1. React Framework
+- Dynamic and interactive user interfaces.  
+- Component-based architecture for reusability.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. Tailwind CSS
+- Utility-first CSS framework for fast styling.  
+- Responsive and mobile-friendly design.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 3. Firebase Integration
+- Reliable backend services for authentication and data management.  
+- Real-time database support for seamless updates.
 
-### `npm test`
+### 4. Clean Architecture
+- Organized folder structure for easy scalability.  
+- Separation of concerns into core, feature, and domain layers.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Key Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Authentication:** Manage users with secure Firebase Authentication.  
+- **Admin Tools:** Efficiently handle admin-related tasks for your HelpNest platform.  
+- **Real-Time Updates:** Experience seamless updates across the platform.  
+- **Responsive Design:** Works flawlessly on desktops, tablets, and mobile devices.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Folder Structure
 
-### `npm run eject`
+### Core Modules
+- **`core`**: Contains reusable utilities, themes, and configurations.  
+- **`di`**: Dependency injection setup.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Feature-Specific Modules
+- **`features/auth`**: Handles all authentication-related functionality.  
+  - **Data Layer**: Defines models, repositories, and data sources.  
+  - **Domain Layer**: Includes use cases and core entities.  
+  - **Presentation Layer**: Manages pages, widgets, and state management.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Other Components
+- **`app`**: Contains global configurations such as routes and themes.  
+- **`main.dart`**: Entry point for the application.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Deployment
 
-## Learn More
+You can deploy the HelpNest Admin Web App on platforms like:  
+- **Firebase Hosting**  
+- **Vercel**  
+- **Netlify**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Ensure that your Firebase project is configured properly for authentication and database services.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Resources
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [React Documentation](https://reactjs.org/)  
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)  
+- [Firebase Documentation](https://firebase.google.com/docs)

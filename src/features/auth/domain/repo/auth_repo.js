@@ -1,15 +1,14 @@
-// src/features/auth/domain/repo/auth_repo.js
-
+// src/features/auth/data/repositories/authRepo.js
 class AuthRepo {
-    // Abstract method to sign in with Google
     async signInWithGoogle() {
-        throw new Error('signInWithGoogle method not implemented');
+        // Implementation for signing in with Google
+        return Promise.resolve(); // Mock implementation
     }
 
-    // Abstract method to add a new user
     async addNewUser(userData) {
-        throw new Error('addNewUser method not implemented');
+        // Implementation for adding a new user
+        return Promise.resolve(); // Mock implementation
     }
 }
 
-export default AuthRepo;
+export default new AuthRepo(); // Export an instance of AuthRepo
