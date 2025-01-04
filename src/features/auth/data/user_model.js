@@ -1,7 +1,6 @@
 import { Timestamp, GeoPoint } from 'firebase/firestore';
-import { UserEntity, UserLocationEntity } from '../../domain/entities/user_entity';
 
-export class UserModel extends UserEntity {
+export class UserModel {
   constructor({
     id,
     name,
@@ -13,17 +12,15 @@ export class UserModel extends UserEntity {
     createdBy,
     deactivate,
   }) {
-    super({
-      id,
-      name,
-      phoneNumber,
-      location,
-      image,
-      gender,
-      creationTD,
-      createdBy,
-      deactivate,
-    });
+    this.id = id ?? '';
+    this.name = name ?? '';
+    this.phoneNumber = phoneNumber ?? '';
+    this.location = location;
+    this.image = image ?? '';
+    this.gender = gender ?? '';
+    this.creationTD = creationTD ?? Timestamp.now();
+    this.createdBy = createdBy ?? '';
+    this.deactivate = deactivate ?? false;
   }
 
   static fromJson(json) {
@@ -66,7 +63,7 @@ export class UserModel extends UserEntity {
   }
 }
 
-export class UserLocationModel extends UserLocationEntity {
+export class UserLocationModel {
   constructor({
     city,
     area,
@@ -77,16 +74,14 @@ export class UserLocationModel extends UserLocationEntity {
     continent,
     geopoint,
   }) {
-    super({
-      city,
-      area,
-      pincode,
-      locality,
-      state,
-      country,
-      continent,
-      geopoint,
-    });
+    this.city = city ?? '';
+    this.area = area ?? '';
+    this.pincode = pincode ?? '';
+    this.locality = locality ?? '';
+    this.state = state ?? '';
+    this.country = country ?? '';
+    this.continent = continent ?? '';
+    this.geopoint = geopoint ?? new GeoPoint(0, 0);
   }
 
   static fromJson(json) {

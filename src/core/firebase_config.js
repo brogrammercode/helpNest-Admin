@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 // Your Firebase configuration
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyAvgzEZQdK2ghskRYbDoUMPrIgz8-xsYYA",
     authDomain: "helpnest-54527.firebaseapp.com",
     projectId: "helpnest-54527",

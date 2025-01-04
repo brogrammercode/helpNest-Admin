@@ -1,12 +1,42 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // For navigation
+import { getAuth, signOut } from "firebase/auth"; // Firebase Auth
+import { RouteNames } from "../../../../core/routes";
 
 const HomePage = () => {
+    const navigate = useNavigate(); // Hook for programmatic navigation
+    const auth = getAuth(); // Get Firebase Auth instance
+
+    // Sign-out function
+    const handleSignOut = () => {
+        signOut(auth) // Firebase sign-out method
+            .then(() => {
+                // Sign-out successful
+                console.log("User  signed out successfully");
+                navigate(RouteNames.AUTH_PAGE); // Redirect to login page
+            })
+            .catch((error) => {
+                // Handle errors
+                console.error("Error signing out:", error);
+            });
+    };
+
     return (
         <div className="min-h-screen flex flex-col">
             {/* Header */}
             <header className="bg-blue-500 text-white p-6">
-                <h1 className="text-3xl font-bold">Welcome to HelpNest</h1>
-                <p className="mt-2 text-lg">Connecting consumers and service providers.</p>
+                <div className="flex justify-between items-center">
+                    <div>
+                        <h1 className="text-3xl font-bold">Welcome to HelpNest</h1>
+                        <p className="mt-2 text-lg">Connecting consumers and service providers.</p>
+                    </div>
+                    <button
+                        onClick={handleSignOut}
+                        className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300"
+                    >
+                        Sign Out
+                    </button>
+                </div>
             </header>
 
             {/* Main Content */}

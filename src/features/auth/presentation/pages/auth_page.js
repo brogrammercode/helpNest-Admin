@@ -1,20 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signInWithGoogle } from '../redux/actions';
+import { setLoading, setError, setUser } from '../../presentation/redux/reducer';
+import { StateError } from '../../../../core/error';
+import AuthRemoteDS from '../../data/auth_remote_ds';
+import { RouteNames } from '../../../../core/routes';
+import { useNavigate } from 'react-router-dom';
 
 const AuthPage = () => {
+    const [headingIndex, setHeadingIndex] = useState(0);
+    const { status, error } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
     const onboarding = [
         ['Find Services\nwith Ease', 'Browse and connect with trusted service providers tailored to your needs.'],
         ['Seamless\nCommunication', 'Chat directly with service providers to discuss and finalize your requirements.'],
         ['Quality\nYou Can Trust', 'Experience verified professionals delivering top-notch service, every time.'],
     ];
 
-    const [headingIndex, setHeadingIndex] = useState(0);
-    const { status, error } = useSelector((state) => state.auth); // Accessing the Redux state
-    const dispatch = useDispatch();
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setHeadingIndex(prevIndex => (prevIndex + 1) % onboarding.length);
+        }, 3000);
 
-    const handleSignIn = () => {
-        dispatch(signInWithGoogle());
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleSignIn = async () => {
+        try {
+            dispatch(setLoading());
+            const authRemoteDS = new AuthRemoteDS();
+            const user = await authRemoteDS.signInWithGoogle();
+            dispatch(setUser(user));
+            navigate(RouteNames.HOME_PAGE);
+        } catch (error) {
+            const errorInstance = new StateError({
+                message: error.message,
+                consoleMessage: 'Google sign-in failed',
+                code: error.code || 'UNKNOWN_ERROR',
+            });
+            dispatch(setError(errorInstance));
+        }
     };
 
     return (
@@ -28,7 +55,7 @@ const AuthPage = () => {
                 </div>
 
                 <div className="carousel">
-                    {/* Assuming you have implemented a carousel component or library */}
+                    {/* Implement carousel logic here */}
                 </div>
 
                 <p>{onboarding[headingIndex][1]}</p>
@@ -40,7 +67,11 @@ const AuthPage = () => {
                     {status === 'loading' && <span>Loading...</span>}
                 </button>
 
-                {status === 'failure' && error && <div className="error-message">{error}</div>}
+                {status === 'failure' && error && (
+                    <div className="error-message">
+                        {error.message}
+                    </div>
+                )}
             </div>
         </div>
     );
