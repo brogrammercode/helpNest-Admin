@@ -16,7 +16,7 @@ const ServiceGridPage = () => {
             const serviceData = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
-            }));
+            })); 
             setServices(serviceData);
         });
 
