@@ -6,7 +6,18 @@ import store from "../src/core/store";
 import { Provider } from "react-redux";
 import { firebaseConfig } from "./core/firebase_config";
 import { initializeApp } from "firebase/app";
-import './index.css';  // Import your CSS file here
+import { AppSecrets } from "./core/secrets";
+import './index.css';
+import { createClient } from "@supabase/supabase-js";
+
+initializeApp(firebaseConfig);
+
+const supabase = createClient(
+  AppSecrets.REACT_APP_SUPABASE_URL,
+  AppSecrets.REACT_APP_SUPABASE_ANON_KEY
+);
+window.supabase = supabase;
+export { supabase };
 
 const App = () => {
   return (
@@ -18,5 +29,4 @@ const App = () => {
   );
 };
 
-initializeApp(firebaseConfig);
 ReactDOM.render(<App />, document.getElementById("root"));
