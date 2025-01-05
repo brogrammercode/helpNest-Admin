@@ -1,71 +1,118 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; // For navigation
-import { getAuth, signOut } from "firebase/auth"; // Firebase Auth
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 import { RouteNames } from "../../../../core/routes";
+import { ArchiveBook, Unlock, UserSquare } from "iconsax-react";
+
+// ServiceCard Component: This will be used to render each individual service box
+const ServiceCard = ({ name, image, description }) => (
+    <div className="w-full max-w-xs bg-white rounded-lg overflow-hidden shadow-lg">
+        <div className="relative w-full" style={{ height: "150px" }}>
+            <img
+                src={image}
+                alt={name}
+                className="w-full h-full object-cover rounded-t-lg"
+            />
+        </div>
+        <div className="p-4 bg-white">
+            <span className="text-xl font-semibold">{name}</span>
+            <p className="mt-2 text-gray-600">{description}</p>
+        </div>
+    </div>
+);
+
+// GridBuilder Component: Accepts a list of services and renders them dynamically
+const GridBuilder = ({ services }) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {services.map((service, index) => (
+            <ServiceCard
+                key={index}
+                name={service.name}
+                image={service.image}
+                description={service.description}
+            />
+        ))}
+    </div>
+);
 
 const HomePage = () => {
-    const navigate = useNavigate(); // Hook for programmatic navigation
-    const auth = getAuth(); // Get Firebase Auth instance
+    const navigate = useNavigate();
+    const auth = getAuth();
+
+    // State to track the selected button (Users or Services)
+    const [selectedOption, setSelectedOption] = useState("users");
+
+    // Sample data for services
+    const services = [
+        {
+            name: "Plumber",
+            image: "https://cdn.dribbble.com/userupload/17406129/file/original-b4f6e6400c247bbf6029c78995885d75.png?format=webp&resize=400x300&vertical=center",
+            description: "Experienced plumber for all your needs. Reliable and efficient in fixing plumbing issues. Available 24/7 for emergency services.",
+        },
+        {
+            name: "Electrician",
+            image: "https://cdn.dribbble.com/userupload/17406129/file/original-b4f6e6400c247bbf6029c78995885d75.png?format=webp&resize=400x300&vertical=center",
+            description: "Certified electrician for wiring, repairs, and installations. Ensuring safety and quality with each job. Available 24/7.",
+        },
+        // Add more service data as required
+    ];
 
     // Sign-out function
     const handleSignOut = () => {
         signOut(auth) // Firebase sign-out method
             .then(() => {
-                // Sign-out successful
-                console.log("User  signed out successfully");
-                navigate(RouteNames.AUTH_PAGE); // Redirect to login page
+                console.log("User signed out successfully");
+                navigate(RouteNames.AUTH_PAGE); 
             })
             .catch((error) => {
-                // Handle errors
                 console.error("Error signing out:", error);
             });
     };
 
+    // Handle selection of option (Users or Services)
+    const handleSelect = (option) => {
+        setSelectedOption(option);
+    };
+
     return (
-        <div className="min-h-screen flex flex-col">
-            {/* Header */}
-            <header className="bg-blue-500 text-white p-6">
-                <div className="flex justify-between items-center">
-                    <div>
-                        <h1 className="text-3xl font-bold">Welcome to HelpNest</h1>
-                        <p className="mt-2 text-lg">Connecting consumers and service providers.</p>
-                    </div>
+        <div className="min-h-screen flex">
+            {/* Drawer */}
+            <div className="flex flex-col px-10 py-10 justify-between w-1/6 bg-gray-100">
+                <div className="flex-col">
+                    <span className="font-semibold text-lg">helpNest</span>
                     <button
-                        onClick={handleSignOut}
-                        className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300"
+                        onClick={() => handleSelect('users')}
+                        className={`mt-5 flex items-center px-3 py-2 rounded ${selectedOption === 'users' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
                     >
-                        Sign Out
+                        <UserSquare className="mr-3 size-5" />
+                        Users
+                    </button>
+                    <button
+                        onClick={() => handleSelect('services')}
+                        className={`mt-5 flex items-center px-3 py-2 rounded ${selectedOption === 'services' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
+                    >
+                        <ArchiveBook className="mr-3 size-5" />
+                        Services
                     </button>
                 </div>
-            </header>
+                <button
+                    onClick={handleSignOut}
+                    className="flex items-center hover:bg-gray-200 px-3 py-2 rounded"
+                >
+                    <Unlock className="mr-3 size-5" />
+                    Log out
+                </button>
+            </div>
 
-            {/* Main Content */}
-            <main className="flex-grow p-6">
-                <div className="text-center">
-                    <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
-                    <p className="mb-4">
-                        HelpNest is dedicated to simplifying the connection between service providers and consumers, making it easier to find and offer services.
-                    </p>
+            {/* Body */}
+            <div className="flex flex-col px-10 py-10 w-5/6">
+                <span className="text-2xl mb-10 font-semibold">
+                    {selectedOption === 'users' ? 'Users' : 'Services'}
+                </span>
 
-                    <h3 className="text-xl font-medium mb-2">How It Works</h3>
-                    <ol className="list-decimal list-inside">
-                        <li>Browse available services from trusted providers.</li>
-                        <li>Request a service and receive quotes.</li>
-                        <li>Schedule and complete your service with ease.</li>
-                    </ol>
-
-                    <div className="mt-6">
-                        <button className="bg-blue-500 text-white py-2 px-6 rounded-lg">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-            </main>
-
-            {/* Footer */}
-            <footer className="bg-gray-800 text-white p-4 text-center">
-                <p>HelpNest &copy; 2025 | All rights reserved</p>
-            </footer>
+                {/* Display Grid of Service Boxes if 'Services' is selected */}
+                {selectedOption === 'services' && <GridBuilder services={services} />}
+            </div>
         </div>
     );
 };

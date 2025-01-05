@@ -5,13 +5,11 @@ import { StateError } from '../../../../core/error';
 import AuthRemoteDS from '../../data/auth_remote_ds';
 import { RouteNames } from '../../../../core/routes';
 import { useNavigate } from 'react-router-dom';
-
 const AuthPage = () => {
     const [headingIndex, setHeadingIndex] = useState(0);
     const { status, error } = useSelector(state => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
 
     const onboarding = [
         ['Find Services\nwith Ease', 'Browse and connect with trusted service providers tailored to your needs.'],
@@ -45,12 +43,11 @@ const AuthPage = () => {
     };
 
     return (
-        <div className="onboarding-page">
-            <div className="app-bar"></div>
-            <div className="content">
-                <h1 className="title">helpNest</h1>
+        <div className="flex justify-center items-center h-screen">
+            <div className="content flex-col items-center justify-center text-center">
+                <h1 className="title text-xl">helpNest</h1>
 
-                <div className="animated-text">
+                <div className="animated-text text-2xl font-semibold mt-1 mb-5">
                     <h2>{onboarding[headingIndex][0]}</h2>
                 </div>
 
@@ -58,23 +55,27 @@ const AuthPage = () => {
                     {/* Implement carousel logic here */}
                 </div>
 
-                <p>{onboarding[headingIndex][1]}</p>
+                <p className='mb-20'>{onboarding[headingIndex][1]}</p>
 
-                <button
-                    onClick={handleSignIn}
-                    disabled={status === 'loading'}>
-                    Continue with Google
-                    {status === 'loading' && <span>Loading...</span>}
-                </button>
+                <div className="flex justify-center mt-5"> 
+                    <button 
+                        className="text-center px-7 py-3 bg-blue-500 text-white rounded"
+                        onClick={handleSignIn}
+                        disabled={status === 'loading'}>
+                        {status === 'loading' ? "Loading ..." : "Continue with Google"}
+                    </button>
+                </div>
 
                 {status === 'failure' && error && (
-                    <div className="error-message">
+                    <div className="error-message text-center mt-3">
                         {error.message}
                     </div>
                 )}
             </div>
         </div>
+
     );
 };
+
 
 export default AuthPage;
