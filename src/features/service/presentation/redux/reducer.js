@@ -1,5 +1,3 @@
-import { StateError } from '../../../../core/error';
-
 const initialState = {
     status: 'initial', // 'initial', 'loading', 'failure', 'success'
     services: [],

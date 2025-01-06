@@ -3,7 +3,7 @@ import { supabase } from '../index';
 export class ReUsableMethods {
     static async uploadFileAndGetUrl({ file, path, bucket = "admin" }) {
         try {
-            const { data, error } = await supabase.storage
+            const { error } = await supabase.storage
                 .from(bucket)
                 .upload(path, file, {
                     cacheControl: "3600",

@@ -1,7 +1,3 @@
-// src/features/auth/state/authReducer.js
-
-import { StateError } from '../../../../core/error';
-
 const initialState = {
     status: 'initial', // 'initial', 'loading', 'failure', 'success'
     user: null,

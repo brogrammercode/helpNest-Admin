@@ -23,7 +23,7 @@ const AuthPage = () => {
         }, 3000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [onboarding.length]);
 
     const handleSignIn = async () => {
         try {
