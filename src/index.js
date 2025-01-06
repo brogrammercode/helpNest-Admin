@@ -12,12 +12,17 @@ import { createClient } from "@supabase/supabase-js";
 
 initializeApp(firebaseConfig);
 
+
 const supabase = createClient(
   AppSecrets.REACT_APP_SUPABASE_URL,
   AppSecrets.REACT_APP_SUPABASE_ANON_KEY
 );
 window.supabase = supabase;
 export { supabase };
+await supabase.auth.signInWithPassword({
+  email: "admin@helpnest.in",
+  password: "Harsh@3134",
+});
 
 const App = () => {
   return (

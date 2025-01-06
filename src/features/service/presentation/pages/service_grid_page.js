@@ -35,7 +35,7 @@ const ServiceGridPage = () => {
                     <ServiceCard
                         key={index}
                         name={service.name}
-                        image={service.image}
+                        image={service.slides[0]}
                         description={service.description}
                     />
                 ))}

@@ -51,12 +51,10 @@ const ServiceForm = ({ initialService }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Ensure service is an instance of ServiceModel
         const serviceInstance = new ServiceModel(service);
 
         try {
-            // You may need to handle the files as well before submitting
-            await serviceRemoteDs.setService(serviceInstance, file1, file2);
+            await serviceRemoteDs.setService(serviceInstance, logoPreview, file1, file2);
             console.log("Service submitted successfully!");
         } catch (error) {
             console.error("Error submitting service:", error);

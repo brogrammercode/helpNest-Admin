@@ -1,24 +1,42 @@
-import { supabase } from '../index';
+import { supabase } from "../index";
 
 export class ReUsableMethods {
     static async uploadFileAndGetUrl({ file, path, bucket = "admin" }) {
         try {
-            const { error } = await supabase.storage
+            // Validate inputs
+            if (!file || !path) {
+                throw new Error("File and path are required parameters.");
+            }
+
+            console.log("Preparing to upload file:", { path, bucket });
+
+            // Attempt file upload
+            const { data: uploadData, error: uploadError } = await supabase.storage
                 .from(bucket)
                 .upload(path, file, {
                     cacheControl: "3600",
-                    upsert: false,
+                    upsert: false, 
                 });
 
-            if (error) {
-                throw new Error(`File upload failed: ${error.message}`);
+            if (uploadError) {
+                console.error("Upload error:", uploadError);
+                throw new Error(`File upload failed: ${uploadError.message}`);
             }
 
-            const { publicUrl } = supabase.storage.from(bucket).getPublicUrl(path);
+            console.log("File uploaded successfully:", uploadData);
 
-            console.log(`File uploaded successfully! File URL: ${publicUrl}`);
+            // Retrieve public URL
+            const { data: publicUrlData, error: urlError } = supabase.storage.from(bucket).getPublicUrl(path);
+
+            if (urlError) {
+                throw new Error(`Failed to retrieve public URL: ${urlError.message}`);
+            }
+
+            const publicUrl = publicUrlData.publicUrl;
+            console.log(`File successfully uploaded. Public URL: ${publicUrl}`);
             return publicUrl;
         } catch (error) {
+            console.error("Error during file upload process:", error.message);
             throw new Error(`File upload failed: ${error.message}`);
         }
     }
